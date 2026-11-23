@@ -6,7 +6,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useCart } from '../context/CartContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight, faCheck, faSparkles } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 gsap.registerPlugin(useGSAP);
 
