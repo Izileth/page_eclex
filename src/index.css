@@ -1,6 +1,54 @@
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
 
+.global-nav-wrapper.internal-nav {
+  background: rgba(247, 245, 242, 0.85);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.global-nav-wrapper.internal-nav .brand-logo {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .brand-serif {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .nav-item {
+  color: rgba(26, 26, 26, 0.6);
+}
+
+.global-nav-wrapper.internal-nav .nav-item:hover,
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(154, 123, 91, 0.25);
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn:hover,
+.global-nav-wrapper.internal-nav .cart-pill-btn.active {
+  background: #9a7b5b;
+  color: #fff;
+  border-color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-counter {
+  background: #1a1a1a;
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .mobile-toggle-btn {
+  color: #1a1a1a;
+}
+
 /* ==========================================================================
    RESET & GLOBAL VARIABLES
    ========================================================================== */
@@ -61,6 +109,54 @@ img {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.global-nav-wrapper.internal-nav {
+  background: rgba(247, 245, 242, 0.85);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.global-nav-wrapper.internal-nav .brand-logo {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .brand-serif {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .nav-item {
+  color: rgba(26, 26, 26, 0.6);
+}
+
+.global-nav-wrapper.internal-nav .nav-item:hover,
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(154, 123, 91, 0.25);
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn:hover,
+.global-nav-wrapper.internal-nav .cart-pill-btn.active {
+  background: #9a7b5b;
+  color: #fff;
+  border-color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-counter {
+  background: #1a1a1a;
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .mobile-toggle-btn {
+  color: #1a1a1a;
 }
 
 /* ==========================================================================
@@ -356,6 +452,54 @@ img {
   will-change: clip-path, opacity;
 }
 
+.global-nav-wrapper.internal-nav {
+  background: rgba(247, 245, 242, 0.85);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.global-nav-wrapper.internal-nav .brand-logo {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .brand-serif {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .nav-item {
+  color: rgba(26, 26, 26, 0.6);
+}
+
+.global-nav-wrapper.internal-nav .nav-item:hover,
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(154, 123, 91, 0.25);
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn:hover,
+.global-nav-wrapper.internal-nav .cart-pill-btn.active {
+  background: #9a7b5b;
+  color: #fff;
+  border-color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-counter {
+  background: #1a1a1a;
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .mobile-toggle-btn {
+  color: #1a1a1a;
+}
+
 /* ==========================================================================
    GLOBAL NAVIGATION (NOIR & GOLD LUXURY)
    ========================================================================== */
@@ -573,6 +717,54 @@ img {
   color: rgba(255, 255, 255, 0.35);
 }
 
+.global-nav-wrapper.internal-nav {
+  background: rgba(247, 245, 242, 0.85);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.global-nav-wrapper.internal-nav .brand-logo {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .brand-serif {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .nav-item {
+  color: rgba(26, 26, 26, 0.6);
+}
+
+.global-nav-wrapper.internal-nav .nav-item:hover,
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(154, 123, 91, 0.25);
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn:hover,
+.global-nav-wrapper.internal-nav .cart-pill-btn.active {
+  background: #9a7b5b;
+  color: #fff;
+  border-color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-counter {
+  background: #1a1a1a;
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .mobile-toggle-btn {
+  color: #1a1a1a;
+}
+
 /* ==========================================================================
    SHARED LUXURY PAGE COMPONENTS & TYPOGRAPHY
    ========================================================================== */
@@ -743,6 +935,54 @@ img {
 .bridge-card p {
   color: #5a5a5a;
   line-height: 1.7;
+}
+
+.global-nav-wrapper.internal-nav {
+  background: rgba(247, 245, 242, 0.85);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.global-nav-wrapper.internal-nav .brand-logo {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .brand-serif {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .nav-item {
+  color: rgba(26, 26, 26, 0.6);
+}
+
+.global-nav-wrapper.internal-nav .nav-item:hover,
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(154, 123, 91, 0.25);
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn:hover,
+.global-nav-wrapper.internal-nav .cart-pill-btn.active {
+  background: #9a7b5b;
+  color: #fff;
+  border-color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-counter {
+  background: #1a1a1a;
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .mobile-toggle-btn {
+  color: #1a1a1a;
 }
 
 /* ==========================================================================
@@ -985,6 +1225,54 @@ img {
   color: #5a5a5a;
 }
 
+.global-nav-wrapper.internal-nav {
+  background: rgba(247, 245, 242, 0.85);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.global-nav-wrapper.internal-nav .brand-logo {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .brand-serif {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .nav-item {
+  color: rgba(26, 26, 26, 0.6);
+}
+
+.global-nav-wrapper.internal-nav .nav-item:hover,
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(154, 123, 91, 0.25);
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn:hover,
+.global-nav-wrapper.internal-nav .cart-pill-btn.active {
+  background: #9a7b5b;
+  color: #fff;
+  border-color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-counter {
+  background: #1a1a1a;
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .mobile-toggle-btn {
+  color: #1a1a1a;
+}
+
 /* ==========================================================================
    LOOKBOOK PAGE STYLING
    ========================================================================== */
@@ -1155,6 +1443,54 @@ img {
   color: #888;
 }
 
+.global-nav-wrapper.internal-nav {
+  background: rgba(247, 245, 242, 0.85);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.global-nav-wrapper.internal-nav .brand-logo {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .brand-serif {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .nav-item {
+  color: rgba(26, 26, 26, 0.6);
+}
+
+.global-nav-wrapper.internal-nav .nav-item:hover,
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(154, 123, 91, 0.25);
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn:hover,
+.global-nav-wrapper.internal-nav .cart-pill-btn.active {
+  background: #9a7b5b;
+  color: #fff;
+  border-color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-counter {
+  background: #1a1a1a;
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .mobile-toggle-btn {
+  color: #1a1a1a;
+}
+
 /* ==========================================================================
    OUR ROOTS PAGE STYLING
    ========================================================================== */
@@ -1277,6 +1613,54 @@ img {
 .manifesto-image-col {
   height: 100%;
   min-height: 480px;
+}
+
+.global-nav-wrapper.internal-nav {
+  background: rgba(247, 245, 242, 0.85);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.global-nav-wrapper.internal-nav .brand-logo {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .brand-serif {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .nav-item {
+  color: rgba(26, 26, 26, 0.6);
+}
+
+.global-nav-wrapper.internal-nav .nav-item:hover,
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(154, 123, 91, 0.25);
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn:hover,
+.global-nav-wrapper.internal-nav .cart-pill-btn.active {
+  background: #9a7b5b;
+  color: #fff;
+  border-color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-counter {
+  background: #1a1a1a;
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .mobile-toggle-btn {
+  color: #1a1a1a;
 }
 
 /* ==========================================================================
@@ -1467,6 +1851,54 @@ img {
   line-height: 1.8;
   color: #5a5a5a;
   margin-bottom: 2.5rem;
+}
+
+.global-nav-wrapper.internal-nav {
+  background: rgba(247, 245, 242, 0.85);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.global-nav-wrapper.internal-nav .brand-logo {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .brand-serif {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .nav-item {
+  color: rgba(26, 26, 26, 0.6);
+}
+
+.global-nav-wrapper.internal-nav .nav-item:hover,
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(154, 123, 91, 0.25);
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn:hover,
+.global-nav-wrapper.internal-nav .cart-pill-btn.active {
+  background: #9a7b5b;
+  color: #fff;
+  border-color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-counter {
+  background: #1a1a1a;
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .mobile-toggle-btn {
+  color: #1a1a1a;
 }
 
 /* ==========================================================================
@@ -1801,6 +2233,54 @@ img {
   justify-content: center;
 }
 
+.global-nav-wrapper.internal-nav {
+  background: rgba(247, 245, 242, 0.85);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.global-nav-wrapper.internal-nav .brand-logo {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .brand-serif {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .nav-item {
+  color: rgba(26, 26, 26, 0.6);
+}
+
+.global-nav-wrapper.internal-nav .nav-item:hover,
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(154, 123, 91, 0.25);
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn:hover,
+.global-nav-wrapper.internal-nav .cart-pill-btn.active {
+  background: #9a7b5b;
+  color: #fff;
+  border-color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-counter {
+  background: #1a1a1a;
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .mobile-toggle-btn {
+  color: #1a1a1a;
+}
+
 /* ==========================================================================
    GLOBAL FOOTER STYLING
    ========================================================================== */
@@ -1957,6 +2437,54 @@ img {
 
 .dot-sep {
   color: var(--accent-gold);
+}
+
+.global-nav-wrapper.internal-nav {
+  background: rgba(247, 245, 242, 0.85);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.global-nav-wrapper.internal-nav .brand-logo {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .brand-serif {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .nav-item {
+  color: rgba(26, 26, 26, 0.6);
+}
+
+.global-nav-wrapper.internal-nav .nav-item:hover,
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .nav-item.active {
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(154, 123, 91, 0.25);
+  color: #1a1a1a;
+}
+
+.global-nav-wrapper.internal-nav .cart-pill-btn:hover,
+.global-nav-wrapper.internal-nav .cart-pill-btn.active {
+  background: #9a7b5b;
+  color: #fff;
+  border-color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .cart-counter {
+  background: #1a1a1a;
+  color: #9a7b5b;
+}
+
+.global-nav-wrapper.internal-nav .mobile-toggle-btn {
+  color: #1a1a1a;
 }
 
 /* ==========================================================================
