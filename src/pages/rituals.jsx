@@ -1,107 +1,249 @@
-import Bar from '../components/Bar';
-import Footer from '../components/Footer';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navigation from '../components/Navigation';
+import Footer from '../components/Footer';
 import { useGSAP } from '@gsap/react';
-import { useRef } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollSmoother } from 'gsap/ScrollSmoother';
+import { useCart } from '../context/CartContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight, faCheck, faSparkles } from '@fortawesome/free-solid-svg-icons';
 
-gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
+gsap.registerPlugin(useGSAP);
+
+const RITUAL_ITEMS = [
+  {
+    id: 'rit-01',
+    name: 'Aurum Radiance Elixir',
+    subtitle: '24K Pure Gold • Cold-Pressed Marula • Damask Rose',
+    description: 'A transformative alchemy of cellular renewal. Suspended micro-gold particles stimulate microcirculation while bio-identical oils restore skin luminescence.',
+    volume: '50ml / 1.7 fl oz',
+    price: 340,
+    tag: 'Signature Formulation',
+    image: 'https://cdn.leonardo.ai/users/c60a0145-a4a8-4ee5-91cf-76495889e8b2/generations/712a67d6-94df-4ab8-afc3-0f67694a5d8a/Leonardo_Kino_XL_Hyperrealistic_3D_digital_sculpture_of_a_myst_2.jpg'
+  },
+  {
+    id: 'rit-02',
+    name: 'Nocturne Sculpting Balm',
+    subtitle: 'Midnight Peptides • Rare Jasmine • Blue Tansy',
+    description: 'Intense nocturnal architecture for the facial contours. Re-densifies epidermal matrix overnight through chronobiological botanical extracts.',
+    volume: '60ml / 2.0 fl oz',
+    tag: 'Nocturnal Matrix',
+    price: 280,
+    image: 'https://cdn.leonardo.ai/users/c60a0145-a4a8-4ee5-91cf-76495889e8b2/generations/d0093578-d817-4a80-8667-570d2d43f4c4/AlbedoBase_XL_Hyperrealistic_3D_digital_sculpture_of_a_mysteri_1.jpg'
+  },
+  {
+    id: 'rit-03',
+    name: 'Celestial Hydration Mist',
+    subtitle: 'Glacial Spring Infusion • White Truffle • Niacinamide',
+    description: 'An ethereal veil delivering micronized molecular moisture. Harmonizes skin pH and guards against modern electromagnetic stress.',
+    volume: '100ml / 3.4 fl oz',
+    tag: 'Hydra-Ion Shield',
+    price: 190,
+    image: 'https://cdn.leonardo.ai/users/c60a0145-a4a8-4ee5-91cf-76495889e8b2/generations/ac941b2e-2cb3-4ac9-bd22-d0695540b4ef/AlbedoBase_XL_Hyperrealistic_3D_digital_sculpture_of_a_mysteri_2.jpg'
+  },
+  {
+    id: 'rit-04',
+    name: 'Obsidian Polishing Nectar',
+    subtitle: 'Volcanic Basalt • Bamboo Charcoal • Fermented Enzymes',
+    description: 'Micronized volcanic glass particles gently refine stratum corneum without micro-tears, uncovering porcelain translucency.',
+    volume: '75ml / 2.5 fl oz',
+    tag: 'Exfoliation Protocol',
+    price: 220,
+    image: 'https://cdn.leonardo.ai/users/c60a0145-a4a8-4ee5-91cf-76495889e8b2/generations/712a67d6-94df-4ab8-afc3-0f67694a5d8a/Leonardo_Kino_XL_Hyperrealistic_3D_digital_sculpture_of_a_myst_2.jpg'
+  }
+];
 
 export function Rituals() {
-    const container = useRef();
-    const navigate = useNavigate();
+  const containerRef = useRef(null);
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
+  const [addedId, setAddedId] = useState(null);
 
-    // Animação de entrada
-    useGSAP(() => {
-        // Configuração do ScrollSmoother (opcional)
-        ScrollSmoother.create({
-            smooth: 1.5,
-            effects: true
-        });
-        
-        // Animação do conteúdo principal
-        gsap.fromTo('.rituals-bx',
-            { opacity: 0 },
-            {
-                opacity: 1,
-                duration: 1,
-                ease: 'power2.inOut'
-            }
-        );
+  useGSAP(() => {
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-        // Animação da imagem
-        gsap.from('.rituals-ig img', {
-            opacity: 0,
-            y: 80,
-            x: 20,
-            duration: 1.5,
-            ease: 'power3.out'
-        });
-        
-        gsap.from('.rituals-ig .rituals-ig-btn', {
-            opacity: 0,
-            y: 80,
-            x: 20,
-            duration: 1.5,
-            ease: 'power3.out'
-        });
+    // Hero entrance
+    tl.from('.rituals-hero-tag', {
+      opacity: 0,
+      y: 20,
+      duration: 0.8
+    })
+    .from('.rituals-hero-title', {
+      opacity: 0,
+      y: 40,
+      duration: 1.2
+    }, '-=0.4')
+    .from('.rituals-hero-desc', {
+      opacity: 0,
+      y: 30,
+      duration: 1
+    }, '-=0.6')
+    .from('.rituals-hero-banner', {
+      opacity: 0,
+      scale: 0.95,
+      duration: 1.4,
+      ease: 'power2.out'
+    }, '-=0.8');
 
-        // Animação do botão
-        // Animação dos textos
-        gsap.from('.rituals-word', {
-            opacity: 0,
-            y: 50,
-            duration: 1,
-            stagger: 0.3,
-            scrollTrigger: {
-                trigger: '.rituals-ct',
-                start: 'top center'
-            }
-        });
-        
-        gsap.from('.rituals-word-2', {
-            opacity: 0,
-            y: 50,
-            duration: 1,
-            stagger: 0.3,
-            scrollTrigger: {
-                trigger: '.rituals-ct',
-                start: 'top center'
-            }
-        });
+    // Cards entrance
+    gsap.from('.ritual-card', {
+      opacity: 0,
+      y: 60,
+      duration: 1.1,
+      stagger: 0.2,
+      ease: 'power3.out',
+      delay: 0.4
+    });
 
-    }, { scope: container });
+    // Steps entrance
+    gsap.from('.step-box', {
+      opacity: 0,
+      y: 40,
+      duration: 1,
+      stagger: 0.15,
+      ease: 'power2.out',
+      delay: 0.8
+    });
+  }, { scope: containerRef });
 
-    const hadleNavigate = () => { navigate('/looks') }
+  const handleAdd = (item) => {
+    addToCart(item);
+    setAddedId(item.id);
+    setTimeout(() => setAddedId(null), 1800);
+  };
 
-    return (
-        <>
-            <Bar />
-            <section className='rituals-bx' ref={container}>
-                <div className='rituals-ct'>
-                    <div className='rituals-ig'>
-                        <img src='https://cdn.leonardo.ai/users/c60a0145-a4a8-4ee5-91cf-76495889e8b2/generations/712a67d6-94df-4ab8-afc3-0f67694a5d8a/Leonardo_Kino_XL_Hyperrealistic_3D_digital_sculpture_of_a_myst_2.jpg' />
-                        <button 
-                            onClick={hadleNavigate} 
-                            className='rituals-ig-btn'
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" className="bi bi-arrow-down" viewBox="0 0 16 16">
-                                <path fillRule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div className='rituals-word'>
-                        <p>Rituals <span>Filosofy</span></p>
-                    </div>
-                    <div className='rituals-word-2'>
-                        <p className='word-p'>Buy our products and be how your master version</p>
-                        <p>To be <span>Ecléx</span></p>
-                    </div>
+  return (
+    <div className="eclex-page-wrapper" ref={containerRef}>
+      <Navigation />
+
+      {/* Hero Section */}
+      <section className="rituals-hero-section">
+        <div className="section-container">
+          <div className="rituals-hero-header">
+            <span className="rituals-hero-tag luxury-eyebrow">The Sacred Regimen</span>
+            <h1 className="rituals-hero-title luxury-title">
+              Formulated for <span>The Master</span> Version of Self
+            </h1>
+            <p className="rituals-hero-desc luxury-desc">
+              Transcending conventional skincare through sculptural formulation. Every drop harmonizes biocompatible botanicals with cellular bio-availability.
+            </p>
+          </div>
+
+          <div className="rituals-hero-banner">
+            <img
+              src="https://cdn.leonardo.ai/users/c60a0145-a4a8-4ee5-91cf-76495889e8b2/generations/712a67d6-94df-4ab8-afc3-0f67694a5d8a/Leonardo_Kino_XL_Hyperrealistic_3D_digital_sculpture_of_a_myst_2.jpg"
+              alt="Ecléx Ritual Essence"
+              className="rituals-banner-img"
+            />
+            <div className="banner-overlay-caption">
+              <span>Haute Botanical Extraction • Limited Harvest</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Catalog Grid */}
+      <section className="rituals-collection-section">
+        <div className="section-container">
+          <div className="collection-header">
+            <div className="collection-header-left">
+              <span className="luxury-eyebrow">Atelier Formulations</span>
+              <h2 className="collection-section-title">
+                The Curated <span>Collection</span>
+              </h2>
+            </div>
+            <p className="collection-header-right">
+              Crafted in small-batch runs under sterile cleanroom standards in Grasse, France.
+            </p>
+          </div>
+
+          <div className="rituals-grid">
+            {RITUAL_ITEMS.map((item) => (
+              <article key={item.id} className="ritual-card luxury-card">
+                <div className="ritual-card-visual">
+                  <img src={item.image} alt={item.name} className="ritual-card-img" />
+                  <span className="ritual-card-badge">{item.tag}</span>
                 </div>
-            </section>
-            <Footer />
-        </>
-    );
+
+                <div className="ritual-card-body">
+                  <div className="ritual-card-meta">
+                    <span className="ritual-volume">{item.volume}</span>
+                    <span className="ritual-price">${item.price} USD</span>
+                  </div>
+
+                  <h3 className="ritual-card-name">{item.name}</h3>
+                  <p className="ritual-card-sub">{item.subtitle}</p>
+                  <p className="ritual-card-desc">{item.description}</p>
+
+                  <div className="ritual-card-footer">
+                    <button
+                      className={`luxury-add-btn ${addedId === item.id ? 'added' : ''}`}
+                      onClick={() => handleAdd(item)}
+                    >
+                      {addedId === item.id ? (
+                        <>
+                          <FontAwesomeIcon icon={faCheck} /> Added to Bag
+                        </>
+                      ) : (
+                        <>
+                          Acquire Formulation <FontAwesomeIcon icon={faArrowRight} />
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* The 3-Step Sequence */}
+      <section className="rituals-protocol-section">
+        <div className="section-container">
+          <div className="protocol-intro">
+            <span className="luxury-eyebrow">The Triad Sequence</span>
+            <h2 className="protocol-title">
+              How to <span>Honor</span> the Daily Ceremony
+            </h2>
+          </div>
+
+          <div className="protocol-steps-grid">
+            <div className="step-box">
+              <span className="step-num">01</span>
+              <h4>Purify & Awaken</h4>
+              <p>Prepare the epidermal canvas with warm botanical thermal water to dilate cellular pathways.</p>
+            </div>
+            <div className="step-box">
+              <span className="step-num">02</span>
+              <h4>Infuse & Sculpt</h4>
+              <p>Apply 3 drops of Aurum Elixir with upward contouring strokes across cheekbones and clavicle.</p>
+            </div>
+            <div className="step-box">
+              <span className="step-num">03</span>
+              <h4>Seal & Transcend</h4>
+              <p>Lock the active peptides with Nocturne Balm to create a breathable, restorative micro-mesh.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Bridge Call to Action */}
+      <section className="editorial-bridge-section">
+        <div className="section-container">
+          <div className="bridge-card">
+            <span className="luxury-eyebrow">Continue the Exploration</span>
+            <h2>Discover the Sculptural Lookbook</h2>
+            <p>Immerse in the tactile dialogue between haute couture silhouettes and radiant skin texture.</p>
+            <button className="luxury-ghost-btn" onClick={() => navigate('/looks')}>
+              Explore Lookbook <FontAwesomeIcon icon={faArrowRight} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
 }
+export default Rituals;
