@@ -1506,7 +1506,7 @@ img {
   height: 130px;
   border-radius: 4px;
   overflow: hidden;
-  background: #000;
+  background: #eae6e1;
 }
 
 .cart-item-info {
@@ -1525,18 +1525,18 @@ img {
 .cart-item-name {
   font-family: var(--font-sans);
   font-size: 1.2rem;
-  color: #fff;
+  color: #1a1a1a;
 }
 
 .cart-item-price {
   font-size: 1.1rem;
   font-weight: 700;
-  color: var(--accent-gold-light);
+  color: #9a7b5b;
 }
 
 .cart-item-sub {
   font-size: 0.8rem;
-  color: var(--text-muted);
+  color: #888;
   margin-bottom: 0.8rem;
 }
 
@@ -1549,8 +1549,8 @@ img {
 .quantity-pill {
   display: inline-flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--border-subtle);
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 30px;
   padding: 0.25rem 0.5rem;
 }
@@ -1561,13 +1561,13 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: #1a1a1a;
   font-size: 1rem;
   transition: color 0.2s ease;
 }
 
 .quantity-pill button:hover {
-  color: var(--accent-gold);
+  color: #9a7b5b;
 }
 
 .qty-val {
@@ -1575,7 +1575,7 @@ img {
   text-align: center;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #fff;
+  color: #1a1a1a;
 }
 
 .remove-item-btn {
@@ -1585,7 +1585,7 @@ img {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.45);
+  color: #aaa;
   transition: color 0.2s ease;
 }
 
@@ -1598,8 +1598,8 @@ img {
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
   padding: 1.8rem;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--border-subtle);
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: 4px;
 }
 
@@ -1607,21 +1607,21 @@ img {
   display: flex;
   gap: 1rem;
   align-items: flex-start;
-  color: var(--accent-gold);
+  color: #9a7b5b;
   font-size: 1.1rem;
 }
 
 .assurance-item strong {
   display: block;
   font-size: 0.82rem;
-  color: #fff;
+  color: #1a1a1a;
   margin-bottom: 0.2rem;
 }
 
 .assurance-item p {
   font-size: 0.75rem;
   line-height: 1.5;
-  color: var(--text-muted);
+  color: #888;
 }
 
 .cart-summary-card {
@@ -1633,9 +1633,9 @@ img {
 .summary-title {
   font-family: var(--font-sans);
   font-size: 1.35rem;
-  color: #fff;
+  color: #1a1a1a;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-subtle);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   padding-bottom: 1rem;
 }
 
@@ -1651,11 +1651,11 @@ img {
   justify-content: space-between;
   align-items: center;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: #5a5a5a;
 }
 
 .tag-free {
-  color: var(--accent-gold);
+  color: #9a7b5b;
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -1667,19 +1667,19 @@ img {
 
 .summary-divider {
   height: 1px;
-  background: var(--border-subtle);
+  background: rgba(0, 0, 0, 0.08);
   margin: 0.5rem 0;
 }
 
 .total-line {
   font-size: 1.15rem;
-  color: #fff;
+  color: #1a1a1a;
   font-weight: 700;
 }
 
 .total-val {
   font-size: 1.45rem;
-  color: var(--accent-gold-light);
+  color: #9a7b5b;
 }
 
 .promo-form {
@@ -1690,24 +1690,24 @@ img {
 
 .promo-input {
   flex: 1;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-subtle);
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 40px;
   padding: 0.7rem 1.2rem;
-  color: #fff;
+  color: #1a1a1a;
   font-size: 0.82rem;
   outline: none;
   transition: border-color 0.3s ease;
 }
 
 .promo-input:focus {
-  border-color: var(--accent-gold);
+  border-color: #9a7b5b;
 }
 
 .promo-btn {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  border: 1px solid var(--border-subtle);
+  background: rgba(0, 0, 0, 0.06);
+  color: #1a1a1a;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 40px;
   padding: 0 1.2rem;
   font-size: 0.78rem;
@@ -1717,14 +1717,14 @@ img {
 }
 
 .promo-btn:hover {
-  background: var(--accent-gold);
-  color: #000;
+  background: #9a7b5b;
+  color: #fff;
 }
 
 .luxury-checkout-btn {
   width: 100%;
-  background: var(--accent-gold);
-  color: #000;
+  background: #9a7b5b;
+  color: #fff;
   font-weight: 700;
   font-size: 0.85rem;
   text-transform: uppercase;
@@ -1736,19 +1736,19 @@ img {
   justify-content: center;
   gap: 0.75rem;
   transition: all 0.3s ease;
-  box-shadow: 0 6px 20px var(--accent-gold-glow);
+  box-shadow: 0 6px 20px rgba(154, 123, 91, 0.2);
 }
 
 .luxury-checkout-btn:hover {
-  background: #fff;
+  background: #1a1a1a;
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
 }
 
 .checkout-note {
   font-size: 0.72rem;
   line-height: 1.5;
-  color: var(--text-muted);
+  color: #888;
   text-align: center;
   margin-top: 1.2rem;
 }
@@ -1758,8 +1758,8 @@ img {
 .checkout-success-card {
   text-align: center;
   padding: 5rem 2rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 8px;
   max-width: 600px;
   margin: 2rem auto;
@@ -1771,19 +1771,19 @@ img {
 
 .empty-state-symbol {
   font-size: 2.8rem;
-  color: var(--accent-gold);
+  color: #9a7b5b;
 }
 
 .cart-empty-state h2,
 .checkout-success-card h2 {
   font-family: var(--font-sans);
   font-size: 2rem;
-  color: #fff;
+  color: #1a1a1a;
 }
 
 .cart-empty-state p,
 .checkout-success-card p {
-  color: rgba(255, 255, 255, 0.65);
+  color: #5a5a5a;
   line-height: 1.6;
   max-width: 440px;
 }
