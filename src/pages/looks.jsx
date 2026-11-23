@@ -1,135 +1,182 @@
-import { useNavigate } from 'react-router-dom';
-import Footer from '../components/Footer';
-import Bar from '../components/Bar';
-import { useGSAP } from '@gsap/react';
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Navigation from '../components/Navigation';
+import Footer from '../components/Footer';
+import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollSmoother } from 'gsap/ScrollSmoother';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
-gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
+gsap.registerPlugin(useGSAP);
+
+const LOOKS_DATA = [
+  {
+    id: 'look-01',
+    edition: 'Edition 01 • Haute Silhouette',
+    title: 'The Golden Duality',
+    subtitle: 'Liquid Gold & Anatomical Serenity',
+    description: 'An exploration of fluid metallurgy wrapping the human posture. Radiant skin illuminated by Aurum Radiance Elixir interacts with reflective metallic drape.',
+    photographer: 'Atelier Ecléx Paris',
+    season: 'Autumn / Winter Couture',
+    image: 'https://cdn.leonardo.ai/users/c60a0145-a4a8-4ee5-91cf-76495889e8b2/generations/ac941b2e-2cb3-4ac9-bd22-d0695540b4ef/AlbedoBase_XL_Hyperrealistic_3D_digital_sculpture_of_a_mysteri_2.jpg'
+  },
+  {
+    id: 'look-02',
+    edition: 'Edition 02 • Sculptural Form',
+    title: 'Draped Obsidian',
+    subtitle: 'Architectural Shadows & Porcelain Radiance',
+    description: 'Minimalist monolithic lines cut from mineral-black velvet. The skin remains clean, untouched by heavy pigments, glowing purely from deep cellular hydration.',
+    photographer: 'Studio Milano',
+    season: 'Permanent Collection',
+    image: 'https://cdn.leonardo.ai/users/c60a0145-a4a8-4ee5-91cf-76495889e8b2/generations/d0093578-d817-4a80-8667-570d2d43f4c4/AlbedoBase_XL_Hyperrealistic_3D_digital_sculpture_of_a_mysteri_1.jpg'
+  },
+  {
+    id: 'look-03',
+    edition: 'Edition 03 • Sacred Glow',
+    title: 'The Ethereal Armor',
+    subtitle: 'Sculptured Gilded Collar & Bare Decolletage',
+    description: 'Jewelry as architecture. 24k polished brass collar framing bare, glass-like skin treated with Celestial Hydration Mist and cold-pressed botanical oils.',
+    photographer: 'Vogue Archive Collaboration',
+    season: 'Spring / Equinox Edition',
+    image: 'https://cdn.leonardo.ai/users/c60a0145-a4a8-4ee5-91cf-76495889e8b2/generations/712a67d6-94df-4ab8-afc3-0f67694a5d8a/Leonardo_Kino_XL_Hyperrealistic_3D_digital_sculpture_of_a_myst_2.jpg'
+  }
+];
 
 export function LookBooks() {
-    const container = useRef();
-    const navigate = useNavigate();
+  const containerRef = useRef(null);
+  const navigate = useNavigate();
 
-    useGSAP(() => {
-        ScrollSmoother.create({
-            wrapper: '#smooth-wrapper',
-            content: '#smooth-content',
-            smooth: 1.5,
-            effects: true
-        });
+  useGSAP(() => {
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-        const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
-   
-        // Animação do cabeçalho principal
-        tl.from('.looks-ig-word', {
-            y: 100,
-            duration: 1.2,
-            stagger: 0.2
-        })
-        .from('.looks-dst img', {
-            scale: 1.2,
-            duration: 1.5,
-            ease: 'power3.out'
-        }, '-=0.5');
+    tl.from('.looks-hero-eyebrow', {
+      opacity: 0,
+      y: 20,
+      duration: 0.8
+    })
+    .from('.looks-hero-title', {
+      opacity: 0,
+      y: 40,
+      duration: 1.2
+    }, '-=0.4')
+    .from('.looks-hero-desc', {
+      opacity: 0,
+      y: 30,
+      duration: 1
+    }, '-=0.6');
 
-        // Animação do grid
-        gsap.from('.looks-ct-grid', {
-            opacity: 0,
-            y: 50,
-            duration: 1,
-            stagger: 0.3,
-            scrollTrigger: {
-                trigger: '.looks-ct-grid',
-                start: 'top 70%'
-            }
-        });
-        gsap.from('.looks-word', {
-            opacity: 0,
-            y: 80,
-            x: 10,
-            duration: 1.5,
-            ease: 'power3.inOut'
-        });
+    gsap.from('.look-editorial-row', {
+      opacity: 0,
+      y: 80,
+      duration: 1.2,
+      stagger: 0.25,
+      ease: 'power3.out',
+      delay: 0.3
+    });
+  }, { scope: containerRef });
 
-        gsap.from('.looks-ig-word', {
-            opacity: 0,
-            y: 100,
-            x: 20,
-            duration: 1.5,
-            ease: 'power3.out'
-        });
+  return (
+    <div className="eclex-page-wrapper" ref={containerRef}>
+      <Navigation />
 
-        // Animação do botão
-        gsap.from('.looks-btn', {
-            opacity: 0,
-            scale: 0.8,
-            rotation: 15,
-            duration: 0.8,
-            ease: 'back.out(1.7)',
-            scrollTrigger: {
-                trigger: '.looks-at',
-                start: 'top 80%'
-            }
-        });
-
-        
-        gsap.from('.looks-at', {
-            y: 100,
-            opacity: 0,
-            duration: 1.5,
-            stagger: {
-                amount: 0.3,
-                from: 'start'
-            }
-        });
-
-       
-
-    }, { scope: container });
-
-    const handleNavigate = () => navigate('/roots');
-
-    return (
-        <div id="smooth-wrapper">
-            <div id="smooth-content">
-                <Bar />
-                <section className="lookbooks-bx" ref={container}>
-                    <div className="looks-ct">
-                        <div className="looks-ig">
-                            <div className='looks-ig-word' data-speed="0.95">
-                                <span className='looks-icon' data-speed="1.1">Styles</span>
-                                <h2 data-speed="0.9">Meet Tour</h2>
-                            </div>
-                            <div className="looks-dst" data-speed="0.85">
-                                <img 
-                                    src='https://cdn.leonardo.ai/users/c60a0145-a4a8-4ee5-91cf-76495889e8b2/generations/d0093578-d817-4a80-8667-570d2d43f4c4/AlbedoBase_XL_Hyperrealistic_3D_digital_sculpture_of_a_mysteri_1.jpg' 
-                                    alt="Style presentation"
-                                />
-                            </div>
-                        </div>
-                        <div className="looks-ct-grid">
-                            <div className="looks-word" data-speed="1.05">
-                                <span>Complete Lineup</span>
-                            </div>
-                            <div className="looks-at" data-speed="0.95">
-                                <h2>Understand <span data-speed="1.1">Your Style</span></h2>
-                                <p>Skincare is not just about the products you
-                                use, but it’s also about how you use those
-                                products effectively. Head over to clean
-                                journal to read more.
-                                </p>
-                                <button onClick={handleNavigate} className="looks-btn" data-speed="0.9">
-                                    Read More
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <Footer />
-            </div>
+      {/* Hero Section */}
+      <section className="looks-hero-section">
+        <div className="section-container">
+          <div className="looks-hero-header">
+            <span className="looks-hero-eyebrow luxury-eyebrow">The Atelier Lookbook</span>
+            <h1 className="looks-hero-title luxury-title">
+              Sculptural Form <span>Meets Radiant</span> Canvas
+            </h1>
+            <p className="looks-hero-desc luxury-desc">
+              A curated photographic dialogue between haute couture drapery and pure botanical skin radiance. Where luxury becomes an architectural extension of the wearer.
+            </p>
+          </div>
         </div>
-    );
+      </section>
+
+      {/* Editorial Looks List */}
+      <section className="looks-gallery-section">
+        <div className="section-container">
+          <div className="looks-editorial-list">
+            {LOOKS_DATA.map((look, index) => {
+              const isEven = index % 2 === 1;
+              return (
+                <div
+                  key={look.id}
+                  className={`look-editorial-row ${isEven ? 'row-reversed' : ''}`}
+                >
+                  <div className="look-visual-col">
+                    <div className="look-image-frame">
+                      <img src={look.image} alt={look.title} className="look-main-img" />
+                      <div className="look-badge-corner">
+                        <span>{look.edition}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="look-content-col">
+                    <span className="look-season-tag">{look.season}</span>
+                    <h2 className="look-title">
+                      {look.title.split(' ')[0]}{' '}
+                      <span>{look.title.split(' ').slice(1).join(' ')}</span>
+                    </h2>
+                    <h4 className="look-subtitle">{look.subtitle}</h4>
+                    <p className="look-desc">{look.description}</p>
+
+                    <div className="look-meta-grid">
+                      <div className="meta-item">
+                        <span className="meta-label">Curation</span>
+                        <span className="meta-val">{look.photographer}</span>
+                      </div>
+                      <div className="meta-item">
+                        <span className="meta-label">Key Preparation</span>
+                        <span className="meta-val">Aurum Elixir Infusion</span>
+                      </div>
+                    </div>
+
+                    <button
+                      className="luxury-link-btn"
+                      onClick={() => navigate('/rituals')}
+                    >
+                      View Complementary Ritual <FontAwesomeIcon icon={faArrowRight} />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Manifesto Quote */}
+      <section className="looks-quote-section">
+        <div className="section-container">
+          <div className="looks-quote-box">
+            <p className="quote-text">
+              "True luxury is not an ornament; it is the absolute harmony between the form you wear and the skin you inhabit."
+            </p>
+            <span className="quote-author">— Ecléx Creative Direction, Paris</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Bridge to Roots */}
+      <section className="editorial-bridge-section">
+        <div className="section-container">
+          <div className="bridge-card">
+            <span className="luxury-eyebrow">The Philosophy</span>
+            <h2>Radical Transparency in Every Origin</h2>
+            <p>Understand the strict laboratory purity and ethical sourcing behind our formulations.</p>
+            <button className="luxury-ghost-btn" onClick={() => navigate('/roots')}>
+              Explore Our Roots <FontAwesomeIcon icon={faArrowRight} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
 }
+
+export default LookBooks;

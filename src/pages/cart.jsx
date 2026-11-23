@@ -1,122 +1,234 @@
-import { useRef, useEffect } from 'react';
-import { gsap } from 'gsap';
-import usePageTransition from '../scripts/usePageTransition';
+import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Navigation from '../components/Navigation';
+import Footer from '../components/Footer';
+import { useCart } from '../context/CartContext';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faArrowRight, faShieldAlt, faGift, faCheck } from '@fortawesome/free-solid-svg-icons';
+
+gsap.registerPlugin(useGSAP);
 
 export function Cart() {
-    const sectionRef = useRef();
-    const { initiateTransition } = usePageTransition();
-    const cartItems = [
-        { id: 1, name: 'Quantum Blazer', price: 1580, material: 'Nano-Silk' },
-        { id: 2, name: 'Neon Tapestry', price: 920, material: 'Liquid Metal' },
-        { id: 3, name: 'Hologram Cloak', price: 2340, material: 'Photon Mesh' }
-    ];
+  const containerRef = useRef(null);
+  const navigate = useNavigate();
+  const { cart, updateQuantity, removeFromCart, subtotal, clearCart } = useCart();
+  const [promoCode, setPromoCode] = useState('');
+  const [discount, setDiscount] = useState(0);
+  const [checkoutComplete, setCheckoutComplete] = useState(false);
 
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-        // Animação de entrada fluida
-        gsap.from('.cart-scroll', {
-            clipPath: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
-            duration: 2,
-            ease: 'sine.inOut'
-        });
+  useGSAP(() => {
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-        // Sistema de partículas de preço
-        gsap.from('.price-particle', {
-            duration: 1.5,
-            opacity: 0,
-            y: (i) => i % 2 ? 50 : -50,
-            x: () => gsap.utils.random(-50, 50),
-            stagger: 0.2,
-            ease: 'elastic.out(1, 0.3)'
-        });
+    tl.from('.cart-header-title', {
+      opacity: 0,
+      y: 30,
+      duration: 1
+    })
+    .from('.cart-items-col', {
+      opacity: 0,
+      y: 40,
+      duration: 1
+    }, '-=0.5')
+    .from('.cart-summary-col', {
+      opacity: 0,
+      y: 40,
+      duration: 1
+    }, '-=0.7');
+  }, { scope: containerRef });
 
-        // Interação de material
-        document.querySelectorAll('.material-tag').forEach(tag => {
-            tag.addEventListener('mousemove', () => {
-            gsap.to(tag, {
-                motionPath: {
-                path: 'M0,0 Q50,50 0,100',
-                autoRotate: true
-                },
-                duration: 2,
-                ease: 'power2.out'
-            });
-            });
-        });
+  const applyPromo = (e) => {
+    e.preventDefault();
+    if (promoCode.trim().toUpperCase() === 'ECLEX20') {
+      setDiscount(0.2);
+    } else {
+      alert('Code not recognized. Try "ECLEX20" for 20% privilege deduction.');
+    }
+  };
 
-        }, sectionRef);
+  const finalTotal = Math.max(0, subtotal * (1 - discount));
 
-        return () => ctx.revert();
-    }, []);
+  const handleCheckout = () => {
+    setCheckoutComplete(true);
+    clearCart();
+  };
 
-    const animateFabricFlow = (id) => {
-        gsap.to(`#fabric-${id} path`, {
-        morphSVG: 'M0,50 Q25,0 50,50 Q75,100 100,50',
-        duration: 1.5,
-        repeat: 1,
-        yoyo: true,
-        ease: 'power2.inOut'
-        });
-    };
+  return (
+    <div className="eclex-page-wrapper" ref={containerRef}>
+      <Navigation />
 
-    return (
-        <section className="art-cart" ref={sectionRef}>
-        <div className="cart-scroll">
-            <div className="fluid-header">
-            <svg className="fabric-flow" viewBox="0 0 100 20">
-                <path d="M0,10 C20,0 80,20 100,10" fill="none" stroke="#C5A47E" />
-            </svg>
-            <h1>Digital Atelier</h1>
+      <section className="cart-page-section">
+        <div className="section-container">
+          <div className="cart-header">
+            <span className="luxury-eyebrow">Personal Sanctuary</span>
+            <h1 className="cart-header-title luxury-title">
+              Your <span>Private Bag</span>
+            </h1>
+            <p className="cart-header-sub luxury-desc">
+              Carefully curated formulations prepared for white-glove dispatch from our atelier.
+            </p>
+          </div>
+
+          {checkoutComplete ? (
+            <div className="checkout-success-card">
+              <div className="success-icon-wrap">
+                <FontAwesomeIcon icon={faCheck} />
+              </div>
+              <h2>Acquisition Confirmed</h2>
+              <p>
+                Your order has been received by our laboratory artisans. A private courier dispatch notification will be transmitted to your email shortly.
+              </p>
+              <button className="luxury-ghost-btn" onClick={() => navigate('/rituals')}>
+                Return to Collections <FontAwesomeIcon icon={faArrowRight} />
+              </button>
             </div>
-
-            {cartItems.map((item) => (
-            <article 
-                key={item.id}
-                className="art-item"
-                onMouseEnter={() => animateFabricFlow(item.id)}
-            >
-                <div className="item-visual">
-                <svg id={`fabric-${item.id}`} className="material-wave" viewBox="0 0 100 100">
-                    <path d="M0,50 Q25,100 50,50 Q75,0 100,50" fill="rgba(197,164,126,0.1)" />
-                </svg>
-                <h2>{item.name}</h2>
-                </div>
-                
-                <div className="item-meta">
-                <span className="price-particle">${item.price}</span>
-                <div className="material-tag">{item.material}</div>
-                <div className="quantity-interface">
-                    <button className="minus">−</button>
-                    <span className="count">1</span>
-                    <button className="plus">+</button>
-                </div>
-                </div>
-            </article>
-            ))}
-
-            <div className="quantum-total">
-            <svg className="total-wave" viewBox="0 0 200 50">
-                <path 
-                d="M0,25 C50,0 150,50 200,25" 
-                fill="none" 
-                stroke="#fff" 
-                strokeDasharray="5 2" 
-                />
-            </svg>
-            <div className="total-meta">
-                <span>Total</span>
-                <h3>$4,840</h3>
+          ) : cart.length === 0 ? (
+            <div className="cart-empty-state">
+              <div className="empty-state-symbol">✦</div>
+              <h2>Your Bag is Currently Silent</h2>
+              <p>
+                You have not yet invited any sculptural formulations into your daily ceremony.
+              </p>
+              <button className="luxury-ghost-btn" onClick={() => navigate('/rituals')}>
+                Explore Sacred Rituals <FontAwesomeIcon icon={faArrowRight} />
+              </button>
             </div>
-            </div>
+          ) : (
+            <div className="cart-layout-grid">
+              {/* Items Column */}
+              <div className="cart-items-col">
+                <div className="cart-items-list">
+                  {cart.map((item) => (
+                    <article key={item.id} className="cart-item-row luxury-card">
+                      <div className="cart-item-thumb">
+                        <img src={item.image} alt={item.name} />
+                      </div>
 
-            <button 
-            className="neo-checkout"
-            onClick={(e) => initiateTransition(() => {}, e)}
-            >
-            <span>Initiate Alchemy</span>
-            <div className="energy-core" />
-            </button>
+                      <div className="cart-item-info">
+                        <div className="cart-item-header">
+                          <h3 className="cart-item-name">{item.name}</h3>
+                          <span className="cart-item-price">
+                            ${item.price * item.quantity} USD
+                          </span>
+                        </div>
+                        <p className="cart-item-sub">{item.subtitle}</p>
+
+                        <div className="cart-item-actions">
+                          <div className="quantity-pill">
+                            <button
+                              onClick={() => updateQuantity(item.id, -1)}
+                              aria-label="Decrease quantity"
+                            >
+                              −
+                            </button>
+                            <span className="qty-val">{item.quantity}</span>
+                            <button
+                              onClick={() => updateQuantity(item.id, 1)}
+                              aria-label="Increase quantity"
+                            >
+                              +
+                            </button>
+                          </div>
+
+                          <button
+                            className="remove-item-btn"
+                            onClick={() => removeFromCart(item.id)}
+                            title="Remove from bag"
+                          >
+                            <FontAwesomeIcon icon={faTrash} /> Remove
+                          </button>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+
+                <div className="cart-assurances">
+                  <div className="assurance-item">
+                    <FontAwesomeIcon icon={faGift} />
+                    <div>
+                      <strong>Complimentary Silk Presentation</strong>
+                      <p>Every bottle is nested in Italian recycled cardstock with sealed silk ribbon.</p>
+                    </div>
+                  </div>
+                  <div className="assurance-item">
+                    <FontAwesomeIcon icon={faShieldAlt} />
+                    <div>
+                      <strong>Cellular Potency Guarantee</strong>
+                      <p>Small-batch formulation guarantees maximum enzyme and lipid freshness.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Order Summary Column */}
+              <div className="cart-summary-col">
+                <div className="cart-summary-card luxury-card">
+                  <h3 className="summary-title">Acquisition Summary</h3>
+
+                  <div className="summary-lines">
+                    <div className="summary-line">
+                      <span>Formulation Subtotal</span>
+                      <span>${subtotal.toFixed(2)} USD</span>
+                    </div>
+
+                    {discount > 0 && (
+                      <div className="summary-line discount-line">
+                        <span>Privilege Deduction (20%)</span>
+                        <span>−${(subtotal * discount).toFixed(2)} USD</span>
+                      </div>
+                    )}
+
+                    <div className="summary-line">
+                      <span>Artisan Packaging</span>
+                      <span className="tag-free">Complimentary</span>
+                    </div>
+
+                    <div className="summary-line">
+                      <span>White-Glove Insured Delivery</span>
+                      <span className="tag-free">Complimentary</span>
+                    </div>
+
+                    <div className="summary-divider"></div>
+
+                    <div className="summary-line total-line">
+                      <span>Total Acquisition</span>
+                      <span className="total-val">${finalTotal.toFixed(2)} USD</span>
+                    </div>
+                  </div>
+
+                  {/* Promo Form */}
+                  <form className="promo-form" onSubmit={applyPromo}>
+                    <input
+                      type="text"
+                      placeholder="Privilege Code (try ECLEX20)"
+                      value={promoCode}
+                      onChange={(e) => setPromoCode(e.target.value)}
+                      className="promo-input"
+                    />
+                    <button type="submit" className="promo-btn">
+                      Apply
+                    </button>
+                  </form>
+
+                  <button className="luxury-checkout-btn" onClick={handleCheckout}>
+                    Complete Acquisition <FontAwesomeIcon icon={faArrowRight} />
+                  </button>
+
+                  <p className="checkout-note">
+                    Encrypted 256-Bit SSL Atelier Transaction. Discreet carbon-neutral courier dispatch.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-        </section>
-    );
+      </section>
+
+      <Footer />
+    </div>
+  );
 }
+
+export default Cart;

@@ -1,159 +1,198 @@
-import { useNavigate } from "react-router-dom";
-import Footer from "../components/Footer";
-import Bar from "../components/Bar";
+import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Navigation from '../components/Navigation';
+import Footer from '../components/Footer';
 import { useGSAP } from '@gsap/react';
-import { useRef } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollSmoother } from 'gsap/ScrollSmoother';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight, faClock, faBookOpen, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
+gsap.registerPlugin(useGSAP);
+
+const STORIES_ARTICLES = [
+  {
+    id: 'story-01',
+    category: 'Philosophy & Lifestyle',
+    readTime: '6 min read',
+    date: 'Autumn Equinox Edition',
+    title: 'The Art of Slow Luxury in an Accelerated World',
+    excerpt: 'Why true refinement requires patient fermentation, uncompromising ingredient sourcing, and the deliberate celebration of ritual silence.',
+    content: `In an era defined by instant gratification and algorithmic speed, true luxury has become synonymous with the one resource that cannot be accelerated: time.
+
+At Ecléx, our botanical elixirs spend forty-five days infusing at controlled subterranean temperatures. This allows delicate bio-active flavonoids to bond naturally with organic squalane molecules without heat degradation.
+
+When you apply these formulations, you are not merely engaging in a cosmetic step; you are reconnecting with an unbroken chain of natural cycles, human craftsmanship, and meditative poise.`,
+    image: 'https://cdn.leonardo.ai/users/c60a0145-a4a8-4ee5-91cf-76495889e8b2/generations/ac941b2e-2cb3-4ac9-bd22-d0695540b4ef/AlbedoBase_XL_Hyperrealistic_3D_digital_sculpture_of_a_mysteri_2.jpg'
+  },
+  {
+    id: 'story-02',
+    category: 'Botanical Alchemy',
+    readTime: '4 min read',
+    date: 'Harvest Chronicles',
+    title: 'Highland Flora: The Resilient Botanicals of Grasse',
+    excerpt: 'How wild plants subjected to extreme alpine diurnal temperature shifts develop extraordinary antioxidant self-defense mechanisms.',
+    content: `High altitude botanicals possess an innate cellular fortitude. Exposed to harsh winds and intense ultraviolet radiation during daylight, followed by sub-zero nocturnal frosts, these specimens generate high concentrations of polyphenol defenses.
+
+Our botanists harvest at dawn when dew points preserve maximum terpene volatility. The extracted nectar yields an unprecedented protective shield against oxidative pollution.`,
+    image: 'https://cdn.leonardo.ai/users/c60a0145-a4a8-4ee5-91cf-76495889e8b2/generations/712a67d6-94df-4ab8-afc3-0f67694a5d8a/Leonardo_Kino_XL_Hyperrealistic_3D_digital_sculpture_of_a_myst_2.jpg'
+  },
+  {
+    id: 'story-03',
+    category: 'Architecture & Design',
+    readTime: '5 min read',
+    date: 'Aesthetic Dialogue',
+    title: 'Designing Silence: Sculptural Flacons as Living Objects',
+    excerpt: 'Every vessel we cast is weighted, balanced, and finished to provide tactile grounding upon your dressing table.',
+    content: `The objects we touch every morning shape our subconscious architecture. Our flacons are cast from heavy black glass that shields light-sensitive nutrients, contoured to fit the natural curve of the palm.
+
+By elevating utilitarian skincare packaging into monolithic sculpture, we transform daily habits into intentional ceremonies of calm.`,
+    image: 'https://cdn.leonardo.ai/users/c60a0145-a4a8-4ee5-91cf-76495889e8b2/generations/d0093578-d817-4a80-8667-570d2d43f4c4/AlbedoBase_XL_Hyperrealistic_3D_digital_sculpture_of_a_mysteri_1.jpg'
+  }
+];
 
 export function Stories() {
-    const container = useRef();
-    const navigate = useNavigate()
+  const containerRef = useRef(null);
+  const navigate = useNavigate();
+  const [activeStory, setActiveStory] = useState(null);
 
-        useGSAP(() => {
-        // Configuração do ScrollSmoother (opcional)
-        ScrollSmoother.create({
-            smooth: 1.5,
-            effects: true
-        });
-        
-        // Animação do conteúdo principal
-        gsap.fromTo('stories-bx',
-            { opacity: 0 },
-            {
-                opacity: 1,
-                duration: 1,
-                ease: 'power2.inOut'
-            }
-        );
+  useGSAP(() => {
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-        // Animação da imagem
-        gsap.from('.stories-grid', {
-            opacity: 0,
-            y: 80,
-            x: 20,
-            duration: 1.5,
-            ease: 'power3.out'
-        });
-        
-        gsap.from('.stories-ct-ig', {
-            opacity: 0,
-            y: 80,
-            x: 20,
-            duration: 1.5,
-            ease: 'power3.out'
-        });
+    tl.from('.stories-hero-tag', {
+      opacity: 0,
+      y: 20,
+      duration: 0.8
+    })
+    .from('.stories-hero-title', {
+      opacity: 0,
+      y: 40,
+      duration: 1.2
+    }, '-=0.4')
+    .from('.stories-hero-desc', {
+      opacity: 0,
+      y: 30,
+      duration: 1
+    }, '-=0.6');
 
-        // Animação do botão
-        // Animação dos textos
-        gsap.from('.stories-ig', {
-            opacity: 0,
-            y: 50,
-            duration: 1,
-            stagger: 0.3,
-            scrollTrigger: {
-                trigger: '.rituals-ct',
-                start: 'top center'
-            }
-        });
-        
-        gsap.from('.stories-ig h2', {
-            opacity: 0,
-            y: 80,
-            x: 10,
-            duration: 1.5,
-            ease: 'power3.inOut'
-        });
-        gsap.from('.stories-ig .stories-ig-btn', {
-            y: 80,
-            x: 10,
-            duration: 1.5,
-            ease: 'power3.inOut'
-        });
-        gsap.from('.stories-ig .lg-icon',{
-            opacity: 0,
-            y: 20,
-            duration: 1.5,
-            ease: 'power4.out'
-         });
+    gsap.from('.story-card', {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      stagger: 0.2,
+      ease: 'power3.out',
+      delay: 0.3
+    });
+  }, { scope: containerRef });
 
-        
-        gsap.from('.rituals-word-2', {
-            opacity: 0,
-            y: 50,
-            duration: 1,
-            stagger: 0.3,
-            scrollTrigger: {
-                trigger: '.rituals-ct',
-                start: 'top center'
-            }
-        });
+  return (
+    <div className="eclex-page-wrapper" ref={containerRef}>
+      <Navigation />
 
-    }, { scope: container });
+      {/* Hero Section */}
+      <section className="stories-hero-section">
+        <div className="section-container">
+          <div className="stories-hero-header">
+            <span className="stories-hero-tag luxury-eyebrow">The Ecléx Gazette</span>
+            <h1 className="stories-hero-title luxury-title">
+              Stories of <span>Alchemy</span>, Art & Living Well
+            </h1>
+            <p className="stories-hero-desc luxury-desc">
+              Reflections from our laboratories, botanical expeditions, and design studios. An intimate window into the philosophy of mindful elegance.
+            </p>
+          </div>
+        </div>
+      </section>
 
-    const handleNavigate = () => 
-        navigate('/rituals')
-    
-    return (
-        <>
-        <>
-        <Bar/>
-        </>
-            <section ref={container} className="stories-bx">
-                <div className="stories-ct">
-                    <div className="stories-ig">
-                        <span className="lg-icon">Destacts</span>
-                        <h2>Our Stories <span>In Details</span> About Our Products</h2>
-                        <div className="stories-ig-btn">
-                            <button onClick={handleNavigate} className="stories-ig-btn"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-up-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0z"/></svg></button>
-                            <p>Our <span>Philosofy.</span></p>
-                        </div>
-                    </div>    
-                    <div className="stories-grid">
-                        <div className="stories-ct-grid">
-                            <div className="stories-ct-ig">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"/> <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466"/></svg>
-                                <span>100% Transparent Aspect</span>
-                            </div>
-                            <div className="stories-ct-word">
-                                <h2>Our<span>Destacs</span></h2>
-                                <p>We formulate to the highest standards of efficacyand safety – using only proven, verifiedingredients in bio-compatible bases; and freefrom over 1800 questionable ingredients</p>
-                            </div>
-                        </div>
-                        <div className="stories-ct-grid">
-                            <div className="stories-ct-ig">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-box-arrow-down-left" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M7.364 12.5a.5.5 0 0 0 .5.5H14.5a1.5 1.5 0 0 0 1.5-1.5v-10A1.5 1.5 0 0 0 14.5 0h-10A1.5 1.5 0 0 0 3 1.5v6.636a.5.5 0 1 0 1 0V1.5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5H7.864a.5.5 0 0 0-.5.5"/>
-                                <path fill-rule="evenodd" d="M0 15.5a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1H1.707l8.147-8.146a.5.5 0 0 0-.708-.708L1 14.293V10.5a.5.5 0 0 0-1 0z"/>
-                                </svg>
-                                <span>100% Transparent Aspect</span>
-                            </div>
-                            <div className="stories-ct-word">
-                                <h2>Our<span>Destacs</span></h2>
-                                <p>We formulate to the highest standards of efficacyand safety – using only proven, verifiedingredients in bio-compatible bases; and freefrom over 1800 questionable ingredients</p>
-                            </div>
-                        </div>
-                        <div className="stories-ct-grid">
-                            <div className="stories-ct-ig">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrows-fullscreen" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707m4.344 0a.5.5 0 0 1 .707 0l4.096 4.096V11.5a.5.5 0 1 1 1 0v3.975a.5.5 0 0 1-.5.5H11.5a.5.5 0 0 1 0-1h2.768l-4.096-4.096a.5.5 0 0 1 0-.707m0-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707m-4.344 0a.5.5 0 0 1-.707 0L1.025 1.732V4.5a.5.5 0 0 1-1 0V.525a.5.5 0 0 1 .5-.5H4.5a.5.5 0 0 1 0 1H1.732l4.096 4.096a.5.5 0 0 1 0 .707"/>
-                                </svg>
-                                <span>100% Transparent Aspect</span>
-                            </div>
-                            <div className="stories-ct-word">
-                                <h2>Our<span>Destacs</span></h2>
-                                <p>We formulate to the highest standards of efficacyand safety – using only proven, verifiedingredients in bio-compatible bases; and freefrom over 1800 questionable ingredients</p>
-                            </div>
-                        </div>
-                    </div>     
-                </div>    
-            </section>
-            <>
-                <Footer/>
-            </>
-        </>
-    );
+      {/* Articles Grid */}
+      <section className="stories-feed-section">
+        <div className="section-container">
+          <div className="stories-grid">
+            {STORIES_ARTICLES.map((article) => (
+              <article key={article.id} className="story-card luxury-card">
+                <div className="story-image-wrap">
+                  <img src={article.image} alt={article.title} className="story-thumb-img" />
+                  <span className="story-cat-badge">{article.category}</span>
+                </div>
+
+                <div className="story-content-wrap">
+                  <div className="story-meta-line">
+                    <span>{article.date}</span>
+                    <span className="dot">•</span>
+                    <span><FontAwesomeIcon icon={faClock} /> {article.readTime}</span>
+                  </div>
+
+                  <h3 className="story-title">{article.title}</h3>
+                  <p className="story-excerpt">{article.excerpt}</p>
+
+                  <button
+                    className="story-read-btn"
+                    onClick={() => setActiveStory(article)}
+                  >
+                    Read Essay <FontAwesomeIcon icon={faArrowRight} />
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Modal Reader */}
+      {activeStory && (
+        <div className="story-modal-backdrop" onClick={() => setActiveStory(null)}>
+          <div className="story-modal-box" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close-btn" onClick={() => setActiveStory(null)}>
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
+
+            <span className="luxury-eyebrow">{activeStory.category}</span>
+            <h2 className="modal-story-title">{activeStory.title}</h2>
+            <div className="modal-story-meta">
+              <span>{activeStory.date}</span> • <span>{activeStory.readTime}</span>
+            </div>
+
+            <div className="modal-story-img-frame">
+              <img src={activeStory.image} alt={activeStory.title} />
+            </div>
+
+            <div className="modal-story-body">
+              {activeStory.content.split('\n\n').map((paragraph, idx) => (
+                <p key={idx}>{paragraph}</p>
+              ))}
+            </div>
+
+            <div className="modal-story-footer">
+              <button
+                className="luxury-ghost-btn"
+                onClick={() => {
+                  setActiveStory(null);
+                  navigate('/rituals');
+                }}
+              >
+                Experience the Formulations <FontAwesomeIcon icon={faArrowRight} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Bridge to Rituals */}
+      <section className="editorial-bridge-section">
+        <div className="section-container">
+          <div className="bridge-card">
+            <span className="luxury-eyebrow">Ready to Experience</span>
+            <h2>Transform Philosophy Into Daily Regimen</h2>
+            <p>Acquire the sacred formulations described in our journal chronicles.</p>
+            <button className="luxury-ghost-btn" onClick={() => navigate('/rituals')}>
+              Explore Sacred Rituals <FontAwesomeIcon icon={faArrowRight} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
 }
+
+export default Stories;

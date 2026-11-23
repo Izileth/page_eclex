@@ -1,100 +1,177 @@
-import { useNavigate } from "react-router-dom";
-import Bar from "../components/Bar";
-import Footer from "../components/Footer";
-import { useGSAP } from '@gsap/react';
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Navigation from '../components/Navigation';
+import Footer from '../components/Footer';
+import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollSmoother } from 'gsap/ScrollSmoother';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight, faShieldAlt, faLeaf, faEye, faGem } from '@fortawesome/free-solid-svg-icons';
 
-gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);
+gsap.registerPlugin(useGSAP);
+
+const PILLARS = [
+  {
+    icon: faEye,
+    title: 'Absolute Transparency',
+    desc: 'No black boxes, no undisclosed "proprietary complexes". We publish the exact botanical origin and clinical percentage of every active element.'
+  },
+  {
+    icon: faLeaf,
+    title: 'Bio-Compatible Matrix',
+    desc: 'Formulations engineered with cellular lipid replicas. Your stratum corneum absorbs nutrients deep into the tissue rather than leaving oily occlusive films.'
+  },
+  {
+    icon: faShieldAlt,
+    title: 'The Exclusion Protocol',
+    desc: 'Free from over 1,800 suspect chemicals: zero synthetic polymers, zero parabens, zero phthalates, and zero animal testing across all supply tiers.'
+  },
+  {
+    icon: faGem,
+    title: 'Artisan Precision',
+    desc: 'Produced in ultra-limited batches in Grasse and Milan, respecting natural harvest cycles and maintaining bio-energetic enzyme potency.'
+  }
+];
 
 export function OurRoots() {
-    const container = useRef();
-    const navigate = useNavigate();
-    
-    useGSAP(() => {
-        // Configuração do ScrollSmoother
-        ScrollSmoother.create({
-            wrapper: '#smooth-wrapper',
-            content: '#smooth-content',
-            smooth: 1.5,
-            effects: true
-        });
+  const containerRef = useRef(null);
+  const navigate = useNavigate();
 
-        // Timeline principal
-        const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+  useGSAP(() => {
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
+    tl.from('.roots-hero-tag', {
+      opacity: 0,
+      y: 20,
+      duration: 0.8
+    })
+    .from('.roots-hero-title', {
+      opacity: 0,
+      y: 40,
+      duration: 1.2
+    }, '-=0.4')
+    .from('.roots-hero-desc', {
+      opacity: 0,
+      y: 30,
+      duration: 1
+    }, '-=0.6');
 
-        // Animação do título principal
-        tl.from('.root-ig h2', {
-            y: 100,
-            opacity: 0,
-            duration: 1.5,
-            stagger: {
-                amount: 0.3,
-                from: 'start'
-            }
-        })
-   
+    gsap.from('.pillar-card', {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      stagger: 0.15,
+      ease: 'power3.out',
+      delay: 0.3
+    });
 
-        // Animação do botão
-        tl.from('.root-words button', {
-            opacity: 0,
-            scale: 0,
-            rotation: -45,
-            duration: 1,
-            ease: 'back.out(1.7)'
-        }, '+=0.3');
+    gsap.from('.roots-manifesto-box', {
+      opacity: 0,
+      scale: 0.96,
+      duration: 1.2,
+      ease: 'power2.out',
+      delay: 0.6
+    });
+  }, { scope: containerRef });
 
-        // Animação dos parágrafos com parallax
-        gsap.from('.root-words p', {
-            opacity: 0,
-            y: 80,
-            duration: 1.2,
-            stagger: 0.2,
-            scrollTrigger: {
-                trigger: '.root-words',
-                start: 'top 70%',
-                toggleActions: 'play none none reverse'
-            }
-        });
+  return (
+    <div className="eclex-page-wrapper" ref={containerRef}>
+      <Navigation />
 
-        // Animação do footer
-
-    }, { scope: container });
-
-    const handleNavigate = () => navigate('/stories');
-
-    return (
-        <div id="smooth-wrapper">
-            <div id="smooth-content">
-                <Bar />
-                <section className="root-bx" ref={container}>
-                    <div className="root-ct">
-                        <div className="root-ig" data-speed="0.9">
-                            <h2>Clean Created <span className="root-wd-2"  data-speed="1.1">Absolutely Transparency</span></h2>
-                        </div>
-                        <div className="root-words">
-                            <div>
-                                <button 
-                                    onClick={handleNavigate}
-                                    data-speed="0.95"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" className="bi bi-leaf" viewBox="0 0 16 16">
-                                        <path d="M1.4 1.7c.216.289.65.84 1.725 1.274 1.093.44 2.884.774 5.834.528l.37-.023c1.823-.06 3.117.598 3.956 1.579C14.16 6.082 14.5 7.41 14.5 8.5c0 .58-.032 1.285-.229 1.997q.198.248.382.54c.756 1.2 1.19 2.563 1.348 3.966a1 1 0 0 1-1.98.198c-.13-.97-.397-1.913-.868-2.77C12.173 13.386 10.565 14 8 14c-1.854 0-3.32-.544-4.45-1.435-1.125-.887-1.89-2.095-2.391-3.383C.16 6.62.16 3.646.509 1.902L.73.806zm-.05 1.39c-.146 1.609-.008 3.809.74 5.728.457 1.17 1.13 2.213 2.079 2.961.942.744 2.185 1.22 3.83 1.221 2.588 0 3.91-.66 4.609-1.445-1.789-2.46-4.121-1.213-6.342-2.68-.74-.488-1.735-1.323-1.844-2.308-.023-.214.237-.274.38-.112 1.4 1.6 3.573 1.757 5.59 2.045 1.227.215 2.21.526 3.033 1.158.058-.39.075-.782.075-1.158 0-.91-.288-1.988-.975-2.792-.626-.732-1.622-1.281-3.167-1.229l-.316.02c-3.05.253-5.01-.08-6.291-.598a5.3 5.3 0 0 1-1.4-.811"/>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div data-speed="1.05">
-                                <p>We formulate to the highest standards of efficacy and safety – using only proven, verified ingredients in bio-compatible bases; and free from over 1800 questionable ingredients.</p>
-                                <p>With no black boxes, and nothing to hide, we strive for radical formulation transparency, so you will never have to guess what and how much of it is in the products you use.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <Footer />
-            </div>
+      {/* Hero Section */}
+      <section className="roots-hero-section">
+        <div className="section-container">
+          <div className="roots-hero-header">
+            <span className="roots-hero-tag luxury-eyebrow">The Ecléx Heritage</span>
+            <h1 className="roots-hero-title luxury-title">
+              Radical <span>Transparency</span> & Pure Alchemy
+            </h1>
+            <p className="roots-hero-desc luxury-desc">
+              Born from a refusal to compromise between clinical performance and clean formulation. We believe knowing what touches your skin is the highest form of self-respect.
+            </p>
+          </div>
         </div>
-    );
+      </section>
+
+      {/* Core Pillars */}
+      <section className="roots-pillars-section">
+        <div className="section-container">
+          <div className="collection-header">
+            <div className="collection-header-left">
+              <span className="luxury-eyebrow">Foundational Principles</span>
+              <h2 className="collection-section-title">
+                The Four <span>Pillars</span>
+              </h2>
+            </div>
+            <p className="collection-header-right">
+              Every formula that bears the Ecléx signature answers to our uncompromising laboratory charter.
+            </p>
+          </div>
+
+          <div className="pillars-grid">
+            {PILLARS.map((pillar, i) => (
+              <div key={i} className="pillar-card luxury-card">
+                <div className="pillar-icon-box">
+                  <FontAwesomeIcon icon={pillar.icon} />
+                </div>
+                <h3 className="pillar-title">{pillar.title}</h3>
+                <p className="pillar-desc">{pillar.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* The Manifesto Block */}
+      <section className="roots-manifesto-section">
+        <div className="section-container">
+          <div className="roots-manifesto-box">
+            <div className="manifesto-grid">
+              <div className="manifesto-text-col">
+                <span className="luxury-eyebrow">The Formulator's Pledge</span>
+                <h2 className="manifesto-title">
+                  "We believe <span>honesty is the most</span> precious ingredient."
+                </h2>
+                <p className="manifesto-body">
+                  When we established Ecléx, the skincare industry was crowded with synthetic fillers and exaggerated marketing claims disguised behind frosted jars.
+                </p>
+                <p className="manifesto-body">
+                  We chose the austere, disciplined path: biocompatible lipids, authentic botanical extracts, 24k gold leaf and cold-pressed infusions formulated without secrecy. Every batch is certified, tested by dermatologists, and created in limited seasonal runs.
+                </p>
+                <div className="manifesto-signature">
+                  <span className="sign-name">Kawã Correia & Juan Santos</span>
+                  <span className="sign-role">Founders & Creative Alchemists</span>
+                </div>
+              </div>
+
+              <div className="manifesto-image-col">
+                <img
+                  src="https://cdn.leonardo.ai/users/c60a0145-a4a8-4ee5-91cf-76495889e8b2/generations/d0093578-d817-4a80-8667-570d2d43f4c4/AlbedoBase_XL_Hyperrealistic_3D_digital_sculpture_of_a_mysteri_1.jpg"
+                  alt="Ecléx Sculpture"
+                  className="manifesto-img"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Bridge to Stories */}
+      <section className="editorial-bridge-section">
+        <div className="section-container">
+          <div className="bridge-card">
+            <span className="luxury-eyebrow">The Atelier Journal</span>
+            <h2>Chronicles of Botanical Exploration</h2>
+            <p>Read detailed narratives about our ingredient harvests, artisan interviews, and seasonal reflections.</p>
+            <button className="luxury-ghost-btn" onClick={() => navigate('/stories')}>
+              Read Stories <FontAwesomeIcon icon={faArrowRight} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
 }
+
+export default OurRoots;
