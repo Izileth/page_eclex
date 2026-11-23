@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Loader from '../components/Loader';
 import Navigation from '../components/Navigation';
 import Hero from '../components/Hero';
@@ -6,8 +6,12 @@ import CallToAction from '../components/CallToAction';
 
 import { initAnimations } from '../scripts/animations';
 function Home() {
+    const [splashDone, setSplashDone] = useState(false);
+
     useEffect(() => {
-        initAnimations();
+        initAnimations(() => {
+            setSplashDone(true);
+        });
     }, []);
 
     
@@ -18,7 +22,7 @@ function Home() {
                 <Loader />
                 <div className="container">
                 <Hero />
-                <Navigation />
+                {splashDone && <Navigation />}
                 </div>
                 <div className="header">
                 <div className="hero-copy">

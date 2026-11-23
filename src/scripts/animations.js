@@ -5,7 +5,7 @@ import { CustomEase } from "gsap/all";
 gsap.registerPlugin(CustomEase);
 CustomEase.create("hop", "0.9, 0, 0.1, 1");
 
-export function initAnimations() {
+export function initAnimations(onSplashComplete) {
   const tl = gsap.timeline({
     delay: 0.3,
     defaults: {
@@ -104,7 +104,10 @@ export function initAnimations() {
     duration: 1,
     stagger: 0.1,
     delay: 0.75,
-    onStart: () => gsap.to(".hero-img", {scale: 1, duration: 2, ease: "hop"}),
+    onStart: () => {
+      gsap.to(".hero-img", {scale: 1, duration: 2, ease: "hop"});
+      if (onSplashComplete) onSplashComplete();
+    },
   });
 
   tl.to(
